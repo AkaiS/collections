@@ -32,6 +32,31 @@ angular.module('yourCollections.services', [])
         description: item.description,
         image: item.image
       }
+    }); 
+  };
+  var editItem = function(item) {
+    return $http({
+      method: 'POST',
+      url: 'api/collection/edit',
+      data: {
+        name: item.name,
+        description: item.description,
+        image: item.image
+      }
     });
+  };
+  var getCollection = function() {
+    return $http({
+      method: 'GET',
+      url: 'api/collection'
+    })
+    .then(function(collection) {
+      return collection;
+    });
+  };
+  return {
+    addItem: addItem,
+    editItem: editItem,
+    getCollection: getCollection
   };
 });
