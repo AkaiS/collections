@@ -1,4 +1,4 @@
-angular.module('collections.auth', [])
+angular.module('yourCollections.auth', [])
 
 .controller('AuthController', function($scope, $window, $location, Auth) {
   $scope.user = {};
@@ -9,6 +9,16 @@ angular.module('collections.auth', [])
         $window.localStorage.setItem('com.collections', token);
         $location.path('/');
       });
-  }
-})
-.controller();
+  };
+
+  $scope.signup = function() {
+    Auth.signup($scope.user)
+      .then(function(token) {
+        $window.localStorage.setItem('com.collections', token);
+        $location.path('/');
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  };
+});
