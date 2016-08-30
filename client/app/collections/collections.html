@@ -1,6 +1,10 @@
 <div id="collections-container">
-  <h1>Your Collections</h1>
-  <div ng-repeat="collection in data.collections">
+  <h3>Your Collections</h3>
+  <div>Add a new collection</div>
+  <form name="addCollection" ng-submit=post(newCollection)>
+    <input type="text" ng-model="newCollection">
+  </form>
+  <div ng-repeat="collection in data.collections track by $index">
     <img src="http://placehold.it/150x300">
     <div class="info">
       <div class="name">{{ collection.name }}</div>

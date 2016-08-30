@@ -1,8 +1,7 @@
 var mongoose = require('mongoose');
 
-var Schema = mongoose.schema;
-
-var collections = new Shema({
+var CollectionsSchema = new mongoose.Schema({
   name: String
 });
 
+module.exports = mongoose.model('Collections', CollectionsSchema);

@@ -2,7 +2,7 @@ var Q = require('q');
 var Collections = require('./collectionsModel.js');
 
 var findAll = Q.nbind(Collections.find, Collections);
-var create = Q.nbind(Collections.create, Collections);
+var createCollection = Q.nbind(Collections.create, Collections);
 var findCollection = Q.nbind(Collections.findOne, Collections);
 
 module.exports = {
@@ -16,8 +16,8 @@ module.exports = {
       });
   },
   postCollection: function(req, res, next) {
-
-    findCollection({ name: req.body.collectionName})
+    var name = req.body.name;
+    findCollection({ name: name })
       .then(function(data) {
         if (data) {
           res.send(data);
@@ -27,9 +27,14 @@ module.exports = {
       })
       .then(function() {
         var collection = {
-          name: req.body.collectionName,
+          name: name,
         };
-        create(collection);
+        return createCollection(collection);
+      })
+      .then(function(created) {
+        if (created) {
+          res.send(created);
+        }
       })
       .fail(function(err) {
         console.log(err);
