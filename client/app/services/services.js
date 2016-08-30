@@ -1,6 +1,7 @@
 angular.module('yourCollections.services', [])
 
 .factory('Collections', function($http) {
+  var current;
   var getUsersCollections = function() {
     return $http({
       method: 'GET',
@@ -17,9 +18,18 @@ angular.module('yourCollections.services', [])
       return resp;
     });
   };
+
+  var collectionPass = function(collection) {
+    if (collection) {
+      current = collection;
+    } else {
+      return current;
+    }
+  };
   return {
     getUsersCollections: getUsersCollections,
-    postUsersCollection: postUsersCollection
+    postUsersCollection: postUsersCollection,
+    collectionPass: collectionPass
   };
 })
 .factory('Collection', function($http) {
@@ -45,10 +55,11 @@ angular.module('yourCollections.services', [])
       }
     });
   };
-  var getCollection = function() {
+  var getCollection = function(collection) {
     return $http({
       method: 'GET',
-      url: 'api/collection'
+      url: 'api/collection',
+      data: { collection: collection }
     })
     .then(function(collection) {
       return collection;

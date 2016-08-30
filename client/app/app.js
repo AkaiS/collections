@@ -2,6 +2,7 @@ angular.module('yourCollections', [
   'yourCollections.auth',
   'yourCollections.services',
   'yourCollections.collections',
+  'yourCollections.collection',
   'ngRoute'
 ])
 .config(function($routeProvider, $httpProvider) {
@@ -17,6 +18,11 @@ angular.module('yourCollections', [
     .when('/', {
       templateUrl: 'app/collections/collections.html',
       controller: 'CollectionsController',
+      authenticate: true
+    })
+    .when('/collection', {
+      templateUrl: 'app/collection/collection.html',
+      controller: 'CollectionController',
       authenticate: true
     })
     .otherwise({

@@ -26,9 +26,9 @@ module.exports = {
       })
       .then(function() {
         var item = {
-          name: req.body.name,
-          image: req.body.image,
-          description: req.body.description
+          name: req.body.item.name,
+          image: req.body.item.image,
+          description: req.body.item.description
         };
         return createItem(item);
       })
