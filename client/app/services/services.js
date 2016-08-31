@@ -1,7 +1,6 @@
 angular.module('yourCollections.services', [])
 
 .factory('Collections', function($http) {
-  var current;
   var getUsersCollections = function() {
     return $http({
       method: 'GET',
@@ -19,35 +18,28 @@ angular.module('yourCollections.services', [])
     });
   };
 
-  var collectionPass = function(collection) {
-    if (collection) {
-      current = collection;
-    } else {
-      return current;
-    }
-  };
   return {
     getUsersCollections: getUsersCollections,
     postUsersCollection: postUsersCollection,
-    collectionPass: collectionPass
   };
 })
 .factory('Collection', function($http) {
   var addItem = function(item) {
     return $http({
       method: 'POST',
-      url: 'api/collection',
+      url: 'api/item',
       data: {
         name: item.name,
         description: item.description,
-        image: item.image
+        image: item.image,
+        collectionName: item.collection
       }
     }); 
   };
   var editItem = function(item) {
     return $http({
       method: 'POST',
-      url: 'api/collection/edit',
+      url: 'api/item/edit',
       data: {
         name: item.name,
         description: item.description,
@@ -55,19 +47,34 @@ angular.module('yourCollections.services', [])
       }
     });
   };
-  var getCollection = function(collection) {
+  var getCollection = function(name) {
     return $http({
       method: 'GET',
-      url: 'api/collection',
-      data: { collection: collection }
+      url: 'api/item',
+      params: {
+        name: name
+      }
     })
-    .then(function(collection) {
-      return collection;
+    .then(function(item) {
+      return item;
     });
   };
   return {
     addItem: addItem,
     editItem: editItem,
     getCollection: getCollection
+  };
+})
+.factory('WhichCollection', function() {
+  var current = {};
+  var setCollection = function(collection) {
+    current = collection;
+  };
+  var getCurCollection = function() {
+    return current;
+  };
+  return {
+    setCollection: setCollection,
+    getCurCollection: getCurCollection
   };
 });

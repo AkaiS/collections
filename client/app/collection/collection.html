@@ -1,14 +1,15 @@
 <div id="collection-container">
   <h3>Collection</h3>
   <div>Add a item to your collection</div>
-  <form name="addCollection" ng-submit=addToCollection()>
+  <form name="addCollection" ng-submit=post()>
     <input type="text" ng-model="item">
     <input type="url" ng-model="itemImage">
-    <input type="text" name="description">
+    <input type="text" ng-model="description">
+    <input type='submit' value='Add Item'>
   </form>
   <div class="items" ng-repeat="item in data.collection track by $index">
     <div class="item">
-      <img src="http://placehold.it/150x300">
+      <img height="300" width="150" src="{{ item.image }}">
       <div class="name">{{ item.name }}</div>
       <div class="description">{{ item.description }}</div>
     </div>
